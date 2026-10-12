@@ -5,18 +5,21 @@ class Hub:
     def __init__(
             self,
             name: str,
-            zone_type: Zone,
             x_axis: int,
             y_axis: int,
             color: int,
-            max_drones: int
+            max_drones: int,
+            zone_type: Zone | None = None
     ) -> None:
         self._name = name
-        self._zone_type = zone_type
         self._x_axis = x_axis
         self._y_axis = y_axis
         self._color = color
         self._max_drones = max_drones
+        if zone_type is not None:
+            self._zone_type = zone_type
+        else:
+            self._zone_type = Zone()
 
     def get_name(self) -> str:
         return self._name
