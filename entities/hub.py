@@ -1,4 +1,5 @@
-from ..zones.zone import Zone
+from __future__ import annotations
+from .zones.zone import Zone
 
 
 class Hub:
@@ -9,17 +10,25 @@ class Hub:
             y_axis: int,
             color: int,
             max_drones: int,
-            zone_type: Zone | None = None
+            zone_type: Zone | None = None,
+            connections: list[Hub] | None = None
     ) -> None:
+
         self._name = name
         self._x_axis = x_axis
         self._y_axis = y_axis
         self._color = color
         self._max_drones = max_drones
+
         if zone_type is not None:
             self._zone_type = zone_type
         else:
             self._zone_type = Zone()
+
+        if connections is not None:
+            self._connections = connections
+        else:
+            self._connections = []
 
     def get_name(self) -> str:
         return self._name
@@ -56,3 +65,9 @@ class Hub:
 
     def set_max_drones(self, max_drones: int) -> None:
         self._max_drones = max_drones
+
+    def get_connections(self) -> list[Hub]:
+        return self._connections
+
+    def add_connection(self, hub: Hub) -> None:
+        self._connections.append(hub)
